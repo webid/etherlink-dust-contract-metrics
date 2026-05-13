@@ -1,0 +1,19 @@
+{
+  "name": "etherlink-contract-metrics",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "daemon":       "node indexer.js --daemon",
+    "server":       "node server.js",
+    "index":        "node indexer.js",
+    "index:full":   "node indexer.js --full",
+    "stats":        "node indexer.js --stats"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "better-sqlite3": "^12.10.0"
+  }
+}
