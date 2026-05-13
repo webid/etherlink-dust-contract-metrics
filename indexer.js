@@ -397,8 +397,6 @@ async function main() {
         printStats(db);
         break;
       case 'daemon':
-        // Run a quick incremental first, then enter the loop
-        await runIncremental(db, false);
         await runDaemon(db);
         break;
       default: { // incremental

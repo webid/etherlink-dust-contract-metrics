@@ -1,3 +1,5 @@
 node_modules/
 dust_protocol.db
 .DS_Store
+dust_protocol.db-shm
+dust_protocol.db-wal
