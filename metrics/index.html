@@ -252,37 +252,72 @@
     /* Rows */
     .row2 {
       display: grid;
-      grid-template-columns: 1fr 1fr;  /* charts side-by-side */
+      grid-template-columns: 1fr 1fr;
+      /* charts side-by-side */
       gap: 10px;
     }
 
     .row2b {
       display: grid;
-      grid-template-columns: 1.6fr 1fr;  /* methods wider, wallets narrower */
+      grid-template-columns: 1.6fr 1fr;
+      /* methods wider, wallets narrower */
       gap: 10px;
     }
 
     /* Responsive — tablets */
     @media (max-width: 860px) {
-      .row2, .row2b { grid-template-columns: 1fr; }
+
+      .row2,
+      .row2b {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* Responsive — narrow phones */
     @media (max-width: 600px) {
-      main { padding: 10px 12px 40px; gap: 8px; }
-      .stats { grid-template-columns: repeat(3, 1fr); }
-      .sv { font-size: 18px; }
-      .heat-cell { height: 28px !important; }
-      .hide-sm { display: none !important; }
+      main {
+        padding: 10px 12px 40px;
+        gap: 8px;
+      }
+
+      .stats {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .sv {
+        font-size: 18px;
+      }
+
+      .heat-cell {
+        height: 28px !important;
+      }
+
+      .hide-sm {
+        display: none !important;
+      }
     }
 
     /* Responsive — very narrow (old phones ~320px) */
     @media (max-width: 420px) {
-      nav { padding: 0 10px; }
-      .ncontract { display: none; }
-      .stats { grid-template-columns: repeat(2, 1fr); }
-      .stat { padding: 9px 10px; }
-      .sv { font-size: 16px; }
+      nav {
+        padding: 0 10px;
+      }
+
+      .ncontract {
+        display: none;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stat {
+        padding: 9px 10px;
+      }
+
+      .sv {
+        font-size: 16px;
+      }
     }
 
     /* Charts */
@@ -292,26 +327,55 @@
     }
 
     /* Hourly heatmap */
-    .heat-outer { display: flex; flex-direction: column; gap: 6px; }
-    .heat-row { display: flex; gap: 2px; }
+    .heat-outer {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .heat-row {
+      display: flex;
+      gap: 2px;
+    }
+
     .heat-cell {
-      flex: 1; height: 44px; border-radius: 3px;
+      flex: 1;
+      height: 44px;
+      border-radius: 3px;
       background: var(--bg3);
       transition: opacity .15s;
       cursor: default;
       position: relative;
     }
+
     .heat-cell:hover::after {
       content: attr(data-tip);
-      position: absolute; bottom: calc(100% + 4px); left: 50%;
+      position: absolute;
+      bottom: calc(100% + 4px);
+      left: 50%;
       transform: translateX(-50%);
-      background: var(--bg3); border: 1px solid var(--line2);
-      color: var(--t1); font-size: 10px; white-space: nowrap;
-      padding: 3px 7px; border-radius: 4px; pointer-events: none;
+      background: var(--bg3);
+      border: 1px solid var(--line2);
+      color: var(--t1);
+      font-size: 10px;
+      white-space: nowrap;
+      padding: 3px 7px;
+      border-radius: 4px;
+      pointer-events: none;
       z-index: 10;
     }
-    .heat-labels { display: flex; gap: 2px; }
-    .heat-lbl { flex: 1; text-align: center; font-size: 8px; color: var(--t3); }
+
+    .heat-labels {
+      display: flex;
+      gap: 2px;
+    }
+
+    .heat-lbl {
+      flex: 1;
+      text-align: center;
+      font-size: 8px;
+      color: var(--t3);
+    }
 
     /* Method list */
     .mlist {
@@ -684,7 +748,8 @@
 
     <!-- Hourly Activity — full width, compact -->
     <div class="card">
-      <div class="chd"><span class="ctitle">Hourly Activity</span><span class="ctag">by hour of day · last 30 days</span></div>
+      <div class="chd"><span class="ctitle">Hourly Activity</span><span class="ctag">by hour of day · last 30
+          days</span></div>
       <div class="cbody" style="padding-bottom:10px;">
         <div class="heat-outer">
           <div class="heat-row" id="heatRow"></div>
@@ -696,7 +761,8 @@
     <!-- Charts side by side -->
     <div class="row2">
       <div class="card">
-        <div class="chd"><span class="ctitle">Cumulative Growth</span><span class="ctag">total txs · 30 days</span></div>
+        <div class="chd"><span class="ctitle">Cumulative Growth</span><span class="ctag">total txs · 30 days</span>
+        </div>
         <div class="cbody">
           <div class="chart-wrap"><canvas id="growthChart"></canvas></div>
         </div>
@@ -757,7 +823,7 @@
     const EXPLORER = 'https://shadownet.explorer.etherlink.com';
     const REFRESH = 15;
 
-    Chart.defaults.color       = '#666';
+    Chart.defaults.color = '#666';
     Chart.defaults.borderColor = '#2a2a2a';
     Chart.defaults.font.family = 'Inter, sans-serif';
     Chart.defaults.font.size = 10;
@@ -902,13 +968,13 @@
         const bg = intensity < 0.05
           ? 'var(--bg3)'
           : `rgba(0,200,150,${(alpha * 0.85).toFixed(2)})`;
-        const tip = `${String(h.hour).padStart(2,'0')}:00 — ${fmt(h.count)} txs`;
+        const tip = `${String(h.hour).padStart(2, '0')}:00 — ${fmt(h.count)} txs`;
         return `<div class="heat-cell" style="background:${bg}" data-tip="${tip}"></div>`;
       }).join('');
 
       lbl.innerHTML = hourly.map((h, i) => {
         // Label only every 4 hours to avoid crowding
-        const txt = i % 4 === 0 ? String(h.hour).padStart(2,'0') : '';
+        const txt = i % 4 === 0 ? String(h.hour).padStart(2, '0') : '';
         return `<span class="heat-lbl">${txt}</span>`;
       }).join('');
     }
@@ -919,14 +985,14 @@
       const base = Math.max(0, total - dailySum);
       let running = base;
       const labels = daily.map(d => d.day.slice(5));
-      const data   = daily.map(d => { running += d.count; return running; });
+      const data = daily.map(d => { running += d.count; return running; });
 
       // Gradient fill
       function makeGradient(ctx) {
         const g = ctx.createLinearGradient(0, 0, 0, 160);
-        g.addColorStop(0,   'rgba(0,200,150,0.25)');
+        g.addColorStop(0, 'rgba(0,200,150,0.25)');
         g.addColorStop(0.7, 'rgba(0,200,150,0.04)');
-        g.addColorStop(1,   'rgba(0,200,150,0)');
+        g.addColorStop(1, 'rgba(0,200,150,0)');
         return g;
       }
 
@@ -964,14 +1030,18 @@
             x: {
               grid: { display: false },
               border: { display: false },
-              ticks: { color: '#666', maxRotation: 0, font: { size: 9 },
-                       maxTicksLimit: 7 },
+              ticks: {
+                color: '#666', maxRotation: 0, font: { size: 9 },
+                maxTicksLimit: 7
+              },
             },
             y: {
               grid: { color: 'rgba(255,255,255,0.04)' },
               border: { display: false },
-              ticks: { color: '#666', font: { size: 9 },
-                       callback: v => v >= 1000 ? `${(v/1000).toFixed(0)}k` : v },
+              ticks: {
+                color: '#666', font: { size: 9 },
+                callback: v => v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v
+              },
             },
           },
         },
@@ -980,7 +1050,7 @@
 
     function updateActivity(daily) {
       const labels = daily.map(d => d.day.slice(5));
-      const data   = daily.map(d => d.count);
+      const data = daily.map(d => d.count);
       if (actChart) {
         actChart.data.labels = labels;
         actChart.data.datasets[0].data = data;
@@ -1037,7 +1107,7 @@
       document.getElementById('txBody').innerHTML = recent.map(tx => {
         const method = tx.decoded_fn || tx.method || '(unknown)';
         const unk = method === '(unknown)';
-        const ok  = tx.status === 'ok';
+        const ok = tx.status === 'ok';
         return `<tr>
       <td class="hcell"><a href="${EXPLORER}/tx/${tx.hash}" target="_blank">${short(tx.hash)}</a></td>
       <td class="num hide-sm">${fmt(tx.block_number)}</td>
